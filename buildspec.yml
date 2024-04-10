@@ -1,0 +1,29 @@
+version: 0.2
+
+env:
+  variables:
+    ARTIFACT_NAME: "C-Build-Test-$CODEBUILD_START_TIME"
+phases:
+  install:
+    commands:
+      - echo "Installing CMake version 3.17.2"
+      - wget https://github.com/Kitware/CMake/releases/download/v3.17.2/cmake-3.17.2-Linux-x86_64.sh
+      - chmod +x cmake-3.17.2-Linux-x86_64.sh
+  pre_build:
+    commands:
+      - echo "Configuring CMake"
+      - cmake .
+  build:
+    commands:
+      - echo "Building the project"
+      - make
+  post_build:
+    commands:
+        - echo "Running tests"
+        - ctest
+artifacts:
+  files:
+    - '**/*'
+  name: $ARTIFACT_NAME
+  base-directory: '/tmp/lib'
+  discard-paths: yes
