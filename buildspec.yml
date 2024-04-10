@@ -7,11 +7,20 @@ phases:
   install:
     commands:
       - apt update
-      - apt upgrade
-      - echo "Installing CMake"
-      - apt install cmake
+      - apt install --yes software-properties-common
+      - add-apt-repository ppa:deadsnakes/ppa
+      - add-apt-repository ppa:ubuntu-toolchain-r/test
+      - apt update
+      - apt install --yes python3.7 python3.7-venv python3.7-dev
+      - apt install --yes clang
+      - python3.7 -m ensurepip
+      - python3.7 -m pip install --upgrade pip
+      - apt install --yes --no-install-recommends libwayland-dev libxrandr-dev
+      - sysctl vm.mmap_rnd_bits=28
   pre_build:
     commands:
+      - echo "Installing CMake"
+      - apt install cmake
       - echo "Configuring CMake"
       - cmake .
   build:
