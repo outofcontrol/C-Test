@@ -6,6 +6,15 @@ env:
 phases:
   install:
     commands:
+      - apt update
+      - apt install --yes software-properties-common
+      - add-apt-repository ppa:fkrull/deadsnakes
+      - add-apt-repository ppa:ubuntu-toolchain-r/test
+      - apt update
+      - apt install --yes python3.7 python3.7-venv python3.7-dev
+      - apt install --yes clang
+      - python3.7 -m ensurepip
+      - python3.7 -m pip install --upgrade pip
       - echo "Installing CMake version 3.17.2"
       - wget https://github.com/Kitware/CMake/releases/download/v3.17.2/cmake-3.17.2-Linux-x86_64.sh
       - chmod +x cmake-3.17.2-Linux-x86_64.sh
