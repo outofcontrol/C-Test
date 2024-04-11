@@ -1,30 +1,20 @@
 steps:
-  # Install step
-  - name: 'gcr.io/cloud-builders/docker'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        apt-get update && \
-        apt-get upgrade -y && \
-        apt-get install -y cmake
-
   # Pre-build configuration
-  - name: 'gcr.io/cloud-builders/docker'
+  - name: 'us-west2-docker.pkg.dev/github-test-builds-419921/ooctest/ooc-test-custom-image:latest'
     entrypoint: 'bash'
     args:
       - '-c'
       - cmake .
 
   # Build the project
-  - name: 'gcr.io/cloud-builders/docker'
+  - name: 'us-west2-docker.pkg.dev/github-test-builds-419921/ooctest/ooc-test-custom-image:latest'
     entrypoint: 'bash'
     args:
       - '-c'
       - make
 
   # Post-build tests
-  - name: 'gcr.io/cloud-builders/docker'
+  - name: 'us-west2-docker.pkg.dev/github-test-builds-419921/ooctest/ooc-test-custom-image:latest'
     entrypoint: 'bash'
     args:
       - '-c'
@@ -35,7 +25,7 @@ artifacts:
   objects:
     location: 'gs://test-ooc/${_ARTIFACT_NAME}/'
     paths:
-      - '/tmp/lib/**'
+      - '/workspace/out/**'
     
 # Substitutions
 substitutions:
