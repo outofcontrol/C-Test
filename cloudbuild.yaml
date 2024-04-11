@@ -1,34 +1,17 @@
 steps:
-  # Install step
+
+  # Build and run tests
   - name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'bash'
     args:
       - '-c'
-      - |
+      |
         apt-get update && \
         apt-get upgrade -y && \
         apt-get install -y cmake
-
-  # Pre-build configuration
-  - name: 'gcr.io/cloud-builders/docker'
-    entrypoint: 'bash'
-    args:
-      - '-c'
       - cmake .
-
-  # Build the project
-  - name: 'gcr.io/cloud-builders/docker'
-    entrypoint: 'bash'
-    args:
-      - '-c'
       - make
-
-  # Post-build tests
-  - name: 'gcr.io/cloud-builders/docker'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - ctest
+      -ctest
 
 # This section is to specify artifacts to be stored
 artifacts:
