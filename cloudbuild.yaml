@@ -4,7 +4,7 @@ steps:
     entrypoint: 'bash'
     args:
       - '-c'
-      - cmake .
+      - cmake . 
 
   # Build the project
   - name: 'us-west2-docker.pkg.dev/github-test-builds-419921/ooctest/ooc-test-custom-image:latest'
