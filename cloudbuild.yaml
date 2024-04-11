@@ -1,0 +1,42 @@
+steps:
+  # Install step
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        apt-get update && \
+        apt-get upgrade -y && \
+        apt-get install -y cmake
+
+  # Pre-build configuration
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - cmake .
+
+  # Build the project
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - make
+
+  # Post-build tests
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - ctest
+
+# This section is to specify artifacts to be stored
+artifacts:
+  objects:
+    location: 'gs://test-ooc/${_ARTIFACT_NAME}/'
+    paths:
+      - '/tmp/lib/**'
+    
+# Substitutions
+substitutions:
+  _ARTIFACT_NAME: 'C-Build-Test-$BUILD_ID'

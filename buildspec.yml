@@ -1,30 +1,30 @@
-version: 0.2
+# version: 0.2
 
-env:
-  variables:
-    ARTIFACT_NAME: "C-Build-Test-$CODEBUILD_START_TIME"
-phases:
-  install:
-    commands:
-      - echo "Installing CMake"
-      - apt update
-      - apt upgrade
-      - apt install -y cmake 
-  pre_build:
-    commands:
-      - echo "Configuring CMake"
-      - cmake .
-  build:
-    commands:
-      - echo "Building the project"
-      - make
-  post_build:
-    commands:
-        - echo "Running tests"
-        - ctest
-artifacts:
-  files:
-    - '**/*'
-  name: $ARTIFACT_NAME
-  base-directory: '/tmp/lib'
-  discard-paths: yes
+# env:
+#   variables:
+#     ARTIFACT_NAME: "C-Build-Test-$CODEBUILD_START_TIME"
+# phases:
+#   install:
+#     commands:
+#       - echo "Installing CMake"
+#       - apt update
+#       - apt upgrade
+#       - apt install -y cmake 
+#   pre_build:
+#     commands:
+#       - echo "Configuring CMake"
+#       - cmake .
+#   build:
+#     commands:
+#       - echo "Building the project"
+#       - make
+#   post_build:
+#     commands:
+#         - echo "Running tests"
+#         - ctest
+# artifacts:
+#   files:
+#     - '**/*'
+#   name: $ARTIFACT_NAME
+#   base-directory: '/tmp/lib'
+#   discard-paths: yes
