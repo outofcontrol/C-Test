@@ -25,7 +25,7 @@ artifacts:
   objects:
     location: 'gs://test-ooc/${_ARTIFACT_NAME}/'
     paths:
-      - '/workspace/out/**'
+      - '/workspace'
     
 # Substitutions
 substitutions:
